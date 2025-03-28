@@ -34,7 +34,7 @@ const Footer = () => {
             mb: 1,
           }}
         >
-          Whether you're here for inspiration, collaboration, or curiosity — I appreciate your time 
+          Whether you're here for inspiration, collaboration, or curiosity — I appreciate your time. 
         </Typography>
 
         <Typography
@@ -44,7 +44,7 @@ const Footer = () => {
             color: 'black',
           }}
         >
-          © {new Date().getFullYear()} Manas Mandlecha • Built with 💻 React,  passion & ☕ coffee
+          © {new Date().getFullYear()} Manas Mandlecha • Built with React,  passion & coffee
         </Typography>
       </Container>
     </Box>

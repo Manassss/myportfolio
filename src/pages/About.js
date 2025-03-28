@@ -27,7 +27,7 @@ const About = forwardRef((props, ref) => {
           align="center"
           sx={{ fontWeight: 600, mb: 5, color: 'black' }}
         >
-          ✨ Get to Know Me
+          Get to Know Me
         </Typography>
       </motion.div>
 

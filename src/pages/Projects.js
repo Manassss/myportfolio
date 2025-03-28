@@ -154,25 +154,29 @@ const Projects = forwardRef((props, ref) => {
                       }}
                     />
                     {project.gallery && (
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          bottom: 8,
-                          right: 8,
-                          background: 'rgba(0,0,0,0.6)',
-                          color: '#fff',
-                          px: 1.5,
-                          py: 0.5,
-                          fontSize: '0.75rem',
-                          borderRadius: '12px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: 1,
-                        }}
-                      >
-                        <FaCamera size={14} />
-                        View Gallery
-                      </Box>
+                     <Box
+                     onClick={() => handleOpenGallery(project.gallery)}
+                     sx={{
+                       position: 'absolute',
+                       bottom: 8,
+                       right: 8,
+                       background: 'rgba(0,0,0,0.6)',
+                       color: '#fff',
+                       px: 1.5,
+                       py: 0.5,
+                       fontSize: '0.75rem',
+                       borderRadius: '12px',
+                       display: 'flex',
+                       alignItems: 'center',
+                       gap: 1,
+                       cursor: 'pointer',
+                       '&:hover': { background: 'rgba(0,0,0,0.8)' },
+                     }}
+                   >
+                     <FaCamera size={14} />
+                     View Gallery
+                   </Box>
+                   
                     )}
                   </Box>
                 )}
@@ -257,84 +261,82 @@ const Projects = forwardRef((props, ref) => {
       <Dialog
   open={openModal}
   onClose={() => setOpenModal(false)}
-  maxWidth="md"
+  fullScreen
   PaperProps={{
     sx: {
-      backdropFilter: 'blur(8px)',
-      backgroundColor: 'rgba(0,0,0,0.7)',
-      borderRadius: 2,
-      boxShadow: 'none',
-    },
-  }}
->
-  <DialogContent
-    sx={{
-      p: 0,
-      position: 'relative',
+      backgroundColor: 'rgba(0,0,0,0.9)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: 'transparent',
+    },
+  }}
+>
+  {/* Close Button */}
+  <MuiIconButton
+    onClick={() => setOpenModal(false)}
+    sx={{
+      position: 'fixed',
+      top: 20,
+      right: 20,
+      color: '#fff',
+      backgroundColor: 'rgba(0,0,0,0.3)',
+      '&:hover': { backgroundColor: 'rgba(0,0,0,0.5)' },
+      zIndex: 20,
     }}
   >
-    {/* Close Button */}
-    <MuiIconButton
-      onClick={() => setOpenModal(false)}
-      sx={{
-        position: 'absolute',
-        top: 10,
-        right: 10,
-        color: '#fff',
-        zIndex: 2,
-      }}
-    >
-      <CloseIcon />
-    </MuiIconButton>
+    <CloseIcon />
+  </MuiIconButton>
 
-    {/* Left Arrow */}
-    <MuiIconButton
-      onClick={handlePrev}
-      disabled={currentImageIndex === 0}
-      sx={{
-        position: 'absolute',
-        left: 10,
-        color: '#fff',
-        backgroundColor: 'rgba(0,0,0,0.3)',
-        '&:hover': { backgroundColor: 'rgba(0,0,0,0.5)' },
-      }}
-    >
-      <ArrowBackIosIcon />
-    </MuiIconButton>
+  {/* Left Arrow */}
+  <MuiIconButton
+    onClick={handlePrev}
+    disabled={currentImageIndex === 0}
+    sx={{
+      position: 'fixed',
+      top: '50%',
+      left: 10,
+      transform: 'translateY(-50%)',
+      color: '#fff',
+      backgroundColor: 'rgba(0,0,0,0.3)',
+      '&:hover': { backgroundColor: 'rgba(0,0,0,0.5)' },
+      zIndex: 10,
+    }}
+  >
+    <ArrowBackIosIcon />
+  </MuiIconButton>
 
-    {/* Right Arrow */}
-    <MuiIconButton
-      onClick={handleNext}
-      disabled={currentImageIndex === modalImages.length - 1}
-      sx={{
-        position: 'absolute',
-        right: 10,
-        color: '#fff',
-        backgroundColor: 'rgba(0,0,0,0.3)',
-        '&:hover': { backgroundColor: 'rgba(0,0,0,0.5)' },
-      }}
-    >
-      <ArrowForwardIosIcon />
-    </MuiIconButton>
+  {/* Right Arrow */}
+  <MuiIconButton
+    onClick={handleNext}
+    disabled={currentImageIndex === modalImages.length - 1}
+    sx={{
+      position: 'fixed',
+      top: '50%',
+      right: 10,
+      transform: 'translateY(-50%)',
+      color: '#fff',
+      backgroundColor: 'rgba(0,0,0,0.3)',
+      '&:hover': { backgroundColor: 'rgba(0,0,0,0.5)' },
+      zIndex: 10,
+    }}
+  >
+    <ArrowForwardIosIcon />
+  </MuiIconButton>
 
-    {/* Image */}
-    {modalImages.length > 0 && (
-      <img
-        src={modalImages[currentImageIndex]}
-        alt={`gallery-${currentImageIndex}`}
-        style={{
-          width: '100%',
-          maxHeight: '80vh',
-          objectFit: 'contain',
-          borderRadius: '8px',
-        }}
-      />
-    )}
-  </DialogContent>
+  {/* Image */}
+  {modalImages.length > 0 && (
+    <img
+      src={modalImages[currentImageIndex]}
+      alt={`gallery-${currentImageIndex}`}
+      style={{
+        maxWidth: '90%',
+        maxHeight: '90%',
+        objectFit: 'contain',
+        borderRadius: '8px',
+        boxShadow: '0 0 20px rgba(0,0,0,0.6)',
+      }}
+    />
+  )}
 </Dialog>
 
     </section>
