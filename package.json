@@ -1,14 +1,19 @@
 {
   "homepage": "https://Manassss.github.io/myportfolio",
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/lab": "^7.0.0-beta.9",
+    "@mui/material": "^7.0.0",
     "bootstrap": "^5.3.3",
     "cra-template": "1.2.0",
-    "framer-motion": "^12.0.6",
+    "framer-motion": "^12.6.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
     "react-router-dom": "^7.1.4",
     "react-scripts": "5.0.1",
+    "react-scroll": "^1.9.3",
     "web-vitals": "^4.2.4"
   },
   "scripts": {

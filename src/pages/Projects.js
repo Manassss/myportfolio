@@ -1,121 +1,204 @@
 import React, { forwardRef } from 'react';
-import myImage from '../assests/rest.png'; // Ensure the path is correct
+import {
+  Grid,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Chip,
+  Box,
+  IconButton,
+  Tooltip,
+} from '@mui/material';
+import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import restImage from '../assests/rest.png';
+
+const projects = [
+  {
+    title: 'Smart Restaurant UI',
+    description:
+      'A dynamic React-based restaurant UI with responsive layout, menu browsing, and animated user interactions. Focused on creating smooth UI/UX experiences with reusable components.',
+    image: restImage,
+    tech: ['React', 'Bootstrap', 'Framer Motion'],
+    github: 'https://github.com/manassss/Restraunt_react',
+    demo: 'https://manassss.github.io/Restraunt_react/',
+  },
+  {
+    title: 'CVine',
+    description:
+      'CVine is a wine discovery platform that recommends wines using a hybrid machine learning model combining content-based and collaborative filtering. As team lead, I’m overseeing full-stack development (React + Flask + Firebase), model integration, and real-time querying.',
+    tech: ['React', 'Flask', 'Firebase', 'Machine Learning'],
+    inProgress: true,
+  },
+  {
+    title: 'PaceX',
+    description:
+      'PaceX is a social marketplace tailored for student entrepreneurs. I’m leading the project architecture, backend design, and real-time features (chat, stories, notifications). Users can create posts, join communities, sell products, and network in real time.',
+    tech: ['React', 'Node.js', 'MongoDB', 'Socket.IO'],
+    inProgress: true,
+  },
+];
 
 const Projects = forwardRef((props, ref) => {
-  const projects = [
-    {
-      id: 1,
-      title: "Restaurant Website",
-      image: myImage,
-      alt: "Restaurant Website Image", 
-      githubLink: "https://manassss.github.io/Restraunt_react/"
-    },
-    {
-      id: 2,
-      title: "Restaurant Website",
-      image: myImage,
-      alt: "Restaurant Website Image", 
-      githubLink: "https://manassss.github.io/Restraunt_react/"
-    },
-    {
-      id: 3,
-      title: "Restaurant Website",
-      image: myImage,
-      alt: "Restaurant Website Image", 
-      githubLink: "https://manassss.github.io/Restraunt_react/"
-    },
-  ];
-
   return (
-    <section id="projects" className="projects" style={styles.section} ref={ref}>
-      <h2 style={styles.heading}>My Projects</h2>
-      <div className="row" style={styles.row}>
-        {projects.map(project => (
-          <div key={project.id} className="col-md-4" style={styles.col}>
-            <div className="card" style={styles.card}>
-              {project.image && (
-                <img 
-                  src={project.image} 
-                  alt={project.alt || project.title} 
-                  className="card-img-top" 
-                  style={styles.cardImage}
-                />
-              )}
-              <div className="card-body">
-                <h5 className="card-title" style={styles.cardTitle}>{project.title}</h5>
-                <a href={project.githubLink} className="btn btn-primary" style={styles.button}>
-                  View Project
-                </a>
-              </div>
-            </div>
-          </div>
+    <section
+      id="projects"
+      ref={ref}
+      style={{
+        background: 'linear-gradient(185deg, #9b4886, #f8f4ec)',
+        padding: '80px 20px',
+        fontFamily: "'Poppins', sans-serif",
+      }}
+    >
+      {/* Section Title Animation */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
+        <Typography
+          variant="h3"
+          align="center"
+          sx={{ fontWeight: 600, color: 'black', mb: 5 }}
+        >
+          🚀 My Projects
+        </Typography>
+      </motion.div>
+
+      {/* Project Cards */}
+      <Grid
+        container
+        justifyContent="center"
+        sx={{
+          flexWrap: 'wrap',
+          rowGap: 4,
+          columnGap: 4,
+        }}
+      >
+        {projects.map((project, index) => (
+          <Box
+            key={index}
+            sx={{
+              width: 330, // 🔧 Fixed width (adjustable)
+              display: 'flex',
+              
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              viewport={{ once: true }}
+              style={{ width: '100%' }}
+            >
+              <Card
+                elevation={6}
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  background: 'linear-gradient(135deg, #fff4f2, #fce8eb)',
+                  borderRadius: 3,
+                  height: '100%',
+                  transition: 'transform 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-6px)',
+                  },
+                }}
+              >
+                {project.image && (
+                  <CardMedia
+                    component="img"
+                    height="180"
+                    image={project.image}
+                    alt={project.title}
+                  />
+                )}
+
+                <CardContent
+                  sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}
+                >
+                  <Box display="flex" justifyContent="space-between" alignItems="center">
+                    <Typography
+                      gutterBottom
+                      variant="h6"
+                      component="div"
+                      sx={{ fontWeight: 600, color: '#9b4886' }}
+                    >
+                      {project.title}
+                    </Typography>
+                    {project.inProgress && (
+                      <Chip
+                        label="In Progress"
+                        size="small"
+                        sx={{
+                          backgroundColor: '#e91e63',
+                          color: '#fff',
+                          fontSize: '0.7rem',
+                          fontWeight: 'bold',
+                        }}
+                      />
+                    )}
+                  </Box>
+
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mb: 2, lineHeight: 1.6 }}
+                  >
+                    {project.description}
+                  </Typography>
+
+                  <Box display="flex" flexWrap="wrap" gap={1} mb={2}>
+                    {project.tech.map((tech, i) => (
+                      <Chip
+                        key={i}
+                        label={tech}
+                        size="small"
+                        sx={{
+                          backgroundColor: '#9b4886',
+                          color: '#fff',
+                          fontSize: '0.75rem',
+                        }}
+                      />
+                    ))}
+                  </Box>
+
+                  <Box display="flex" gap={1} mt="auto">
+                    {project.github && (
+                      <Tooltip title="View on GitHub">
+                        <IconButton
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener"
+                          sx={{ color: '#9b4886' }}
+                        >
+                          <FaGithub />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+                    {project.demo && (
+                      <Tooltip title="Live Demo">
+                        <IconButton
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener"
+                          sx={{ color: '#9b4886' }}
+                        >
+                          <FaExternalLinkAlt />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+                  </Box>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </Box>
         ))}
-      </div>
+      </Grid>
     </section>
   );
 });
-
-const styles = {
-  section: {
-    padding: '50px',
-    color: '#fff',
-    borderRadius: '12px',
-    backgroundColor: 'transparent',
-    fontFamily: "'Verdana', sans-serif",
-
-  },
-  heading: {
-    textAlign: 'center',
-    fontSize: '3rem',
-    marginBottom: '30px',
-    color: 'black',
-    fontFamily: "'Verdana', sans-serif",
-    fontWeight: "bold",
-
-
-  },
-  row: {
-    display: 'flex',
-    gap: '20px',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-  },
-  col: {
-    flex: '1 0 30%',
-    maxWidth: '30%',
-    marginBottom: '20px',
-  },
-  card: {
-    backgroundColor: 'transparent',
-    borderRadius: '8px',
-    overflow: 'hidden',
-    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.3)',
-    transition: 'all 0.3s ease',
-  },
-  cardImage: {
-    width: '100%',
-    height: '200px',
-    objectFit: 'cover',
-  },
-  cardTitle: {
-    fontSize: '1.5rem',
-    margin: '10px 0',
-    color: 'black',
-    fontFamily: "'Verdana', sans-serif",
-    fontWeight: "bold",
-  },
-  button: {
-    backgroundColor: '#007bff',
-    borderColor: '#007bff',
-    fontSize: '1.1rem',
-    padding: '10px 20px',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    color: '#fff',
-    textDecoration: 'none',
-    fontFamily: "'Verdana', sans-serif",
-    fontWeight: "bold",
-  }
-};
 
 export default Projects;

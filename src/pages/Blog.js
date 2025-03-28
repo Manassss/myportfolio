@@ -1,91 +1,113 @@
 import React from 'react';
+import { Typography, Grid, Paper, Button, Box } from '@mui/material';
+import { motion } from 'framer-motion';
 
-const Blog = () => {
-  return (
-    <section id="blog">
-      <h2>Blog</h2>
+const blogs = [
+  {
+    title: 'Generative AI: The Future of Creativity',
+    content: `Generative AI is transforming industries—empowering tools like GPT, Midjourney, and more to produce original content. From digital art to game assets, we explore how this tech is changing creativity.`,
+  },
+  {
+    title: 'Innovation: Fueling the Next Wave of Tech',
+    content: `Innovation powers progress—from the internet to AI. This post explores how companies foster experimentation, design thinking, and fail-fast culture to solve problems in bold ways.`,
+  },
+  {
+    title: 'How Full-Stack Developers Shape Modern Products',
+    content: `Full-stack engineers go beyond just tech—they're builders and thinkers. We explore their role in shaping products across frontend, backend, DevOps, and user empathy.`,
+  },
+];
 
-      <div className="blog-cards">
-        <div className="blog-card">
-          <h3>Generative AI: The Future of Creativity</h3>
-          <p>
-            Generative AI is transforming industries by enabling machines to create new, original content such as images, music, and even code. This technology allows for endless creative possibilities, where artificial intelligence can assist in everything from art creation to content generation. In this blog, we dive into the potential of generative AI and its impact on creativity across various fields.
-          </p>
-          <a href="#" className="read-more">Read More</a>
-        </div>
+const Blog = () => (
+  <section
+    id="blog"
+    style={{
+      background: 'linear-gradient(355deg, #9b4886, #f8f4ec)',
+      padding: '80px 20px',
+      fontFamily: "'Poppins', sans-serif",
+    }}
+  >
+    {/* Animated Heading */}
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+    >
+      <Typography variant="h3" align="center" sx={{ fontWeight: 600, mb: 5, color: 'black' }}>
+        📝 My Blog
+      </Typography>
+    </motion.div>
 
-        <div className="blog-card">
-          <h3>Innovation: Fueling the Next Wave of Tech</h3>
-          <p>
-            Innovation has always been the driving force behind progress in technology. From the advent of the internet to the rise of cloud computing, breakthroughs in innovation have changed the world. In this blog, we explore the importance of fostering a culture of innovation and how it leads to breakthroughs in tech, business, and society.
-          </p>
-          <a href="#" className="read-more">Read More</a>
-        </div>
-      </div>
-
-      <style jsx>{`
-        h2 {
-          text-align: center;
-          padding: 20px;
-          font-size: 5rem; /* Increases font size */
-          fontFamily: "'Verdana', sans-serif",
-          fontWeight: "bold",
-        }
-        .blog-cards {
-          display: flex;
-          justify-content: center;
-          gap: 500px; /* Increased gap between cards */
-          flex-wrap: wrap;
-          padding-top: 20px;
-          fontFamily: "'Verdana', sans-serif",
-          fontWeight: "bold",
-          
-        }
-        .blog-card {
-          background-color: transparent;
-          border-radius: 10px;
-          padding: 20px;
-          width: 300px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          backdrop-filter: blur(10px);
-          transition: transform 0.3s ease;
-          font-size: 1.1rem; /* Increases font size */
-          fontFamily: "'Verdana', sans-serif",
-          fontWeight: "bold",
-        }
-        .blog-card h3 {
-              font-size: 2rem; /* Makes the title bigger */
-              margin-bottom: 10px;
-              fontFamily: "'Verdana', sans-serif",
-              fontWeight: "bold",
-        }
-        .blog-card p {
-              font-size: 1.2rem; /* Increases the content font size */
-              fontFamily: "'Verdana', sans-serif",
-              fontWeight: "bold",
-        }
-        .blog-card:hover {
-          transform: translateY(-10px);
-        }
-.read-more {
-  color:white;
-  text-decoration: none;
-  font-family: 'Verdana', sans-serif; /* Corrected property name */
-  font-weight: bold;  
-  background-color: blue; /* Corrected background color */
-  padding: 10px 20px; /* Added padding for better button appearance */
-  border-radius: 5px; /* Optional: adds rounded corners */
-  transition: background-color 0.3s ease; /* Smooth transition on hover */
-}
-
-.read-more:hover {
-  text-decoration: underline;
-  
-}
-
-      `}</style>
-    </section>
-  );
-};
+    <Grid
+      container
+      justifyContent="center"
+      spacing={4}
+      sx={{
+        rowGap: 4,
+        columnGap: 4,
+      }}
+    >
+      {blogs.map((blog, index) => (
+        <Box
+          key={index}
+          sx={{
+            width: 330, // 📏 Fixed width (adjust as needed)
+            display: 'flex',
+          }}
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+            viewport={{ once: true }}
+            style={{ width: '100%' }}
+          >
+            <Paper
+              elevation={4}
+              sx={{
+                p: 3,
+                borderRadius: 4,
+                background: 'linear-gradient(135deg, #fff4f2, #fce8eb)',
+                color: '#333',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                transition: 'transform 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
+                },
+              }}
+            >
+              <Typography variant="h6" fontWeight={600} sx={{ mb: 2, color: '#9b4886' }}>
+                {blog.title}
+              </Typography>
+              <Typography variant="body2" sx={{ mb: 3, color: '#555', lineHeight: 1.6 }}>
+                {blog.content}
+              </Typography>
+              <Button
+                variant="contained"
+                size="medium"
+                sx={{
+                  backgroundColor: '#9b4886',
+                  color: '#fff',
+                  textTransform: 'none',
+                  borderRadius: '20px',
+                  alignSelf: 'flex-start',
+                  '&:hover': {
+                    backgroundColor: '#7c366b',
+                  },
+                }}
+              >
+                Read More
+              </Button>
+            </Paper>
+          </motion.div>
+        </Box>
+      ))}
+    </Grid>
+  </section>
+);
 
 export default Blog;

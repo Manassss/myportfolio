@@ -1,14 +1,15 @@
 import React, { useRef } from 'react';
-import Header from '../components/Header';
 import { motion } from 'framer-motion';
-import gifImage from '../assests/about.jpg'; 
-import myImage from '../assests/profile.jpeg'; 
-import { FaCode, FaGamepad, FaMusic, FaPlane, FaRocket, FaQuoteLeft } from "react-icons/fa";
-import Projects from './Projects'; 
+import { Container, Box, Avatar, Typography, Button, Stack, IconButton } from '@mui/material';
+import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+
+import Header from '../components/Header';
+import gifImage from '../assests/about.jpg';
+import myImage from '../assests/profile.jpeg';
+import Projects from './Projects';
 import Skills from './Skills';
 import Experience from './ExperienceEducation';
 import Blog from './Blog';
-import Contact from './Contact';
 import About from './About';
 
 const Home = () => {
@@ -17,115 +18,170 @@ const Home = () => {
   const skillsRef = useRef(null);
   const experienceRef = useRef(null);
   const blogRef = useRef(null);
-  const contactRef = useRef(null);
-
-  // Function to scroll to any section
-  const scrollToSection = (ref) => {
-    if (ref && ref.current) {
-      ref.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
-      {/* Global Background GIF */}
+      {/* Background */}
       <div
         style={{
-          position: 'fixed', 
-          top: 0, 
-          left: 0, 
-          width: '100%', 
-          height: '100%', 
-          background: `url(${gifImage}) no-repeat center center`, 
-          backgroundSize: 'cover', 
-          backgroundPosition: 'center', 
-          zIndex: -1, // Ensures it stays behind all content
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          background: `url(${gifImage}) no-repeat center center`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          zIndex: -1,
         }}
-      ></div>
+      />
+
       <Header />
 
-      {/* Home Section */}
-      {/* Home Section */}
-<section id='home'
-  className="hero d-flex align-items-center"
-  style={{
-    height: '100vh',
-    position: 'relative', 
-    zIndex: 1, // Content stays above the background
-  }}
->
-  <div className="container text-center" style={{ color: '#fff' }}>
-    <motion.h1
-      className="display-3"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
-      style={{
-        fontWeight: 'bold',
-        fontSize: 'rem',
-        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
-        color: 'black',
-        fontFamily: "'Pacifico', Verdana", // Applying the cursive font
-      }}
-    >
-Welcome!!!
-      </motion.h1>
-    <motion.p
-      initial={{ x: -100 }}
-      animate={{ x: 0 }}
-      transition={{ duration: 1 }}
-      style={{
-        fontSize: '1.3rem',
-        lineHeight: '1.6',
-        marginBottom: '20px',
-        textShadow: '1px 1px 3px rgba(0, 0, 0, 0.5)',
-        color: 'black',
-        fontFamily: "'Verdana', cursive", // Applying the cursive font
-      }}
-    >
-      I'm a full-stack developer with a passion for crafting elegant and impactful software solutions. My toolkit includes modern web technologies like React, Node.js, and Firebase, which I leverage to build innovative applications that tackle real-world challenges. I'm currently on an exciting journey into the realms of machine learning and cloud computing, eager to unlock their potential and weave them into my projects. Always learning and exploring, I'm particularly thrilled about the future of AI and mobile development, and I'm actively pursuing opportunities to expand my expertise in these areas. I believe technology has the power to shape our world, and I'm driven to be a part of that positive change.
-    </motion.p>
-
+      {/* Hero Section */}
+      <Box
+        id="home"
+        sx={{
+          height: '100vh',
+          background: 'linear-gradient(185deg, #9b4886, #f8f4ec)',
+          pt: '100px',
+          color: '#333',
+          fontFamily: "'Poppins', sans-serif",
+        }}
+      >
+        <Container maxWidth="md" sx={{ textAlign: 'center' }}>
+          {/* Avatar */}
           <motion.div
-            className="my-image mt-4"
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1 }}
           >
-            <img
+            <Avatar
+              alt="Manas Mandlecha"
               src={myImage}
-              alt="My Image"
-              className="img-fluid rounded-circle shadow"
-              style={{
-                width: '150px',
-                height: '150px',
-                objectFit: 'cover',
-                border: '4px solid #fff',
+              sx={{
+                width: 240,
+                height: 240,
+                mx: 'auto',
+                mb: 3,
+                boxShadow: 3,
               }}
             />
           </motion.div>
 
-          <motion.button
-            className="btn btn-primary mt-3"
-            initial={{ y: 100 }}
-            animate={{ y: 0 }}
+          {/* Heading */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            style={{
-              backgroundColor: '#007bff',
-              borderColor: '#007bff',
-              fontSize: '1.1rem',
-              padding: '12px 30px',
-              borderRadius: '30px',
-              boxShadow: '0px 6px 15px rgba(0, 0, 0, 0.2)',
-              cursor: 'pointer',
-              fontFamily: "'Pacifico', Verdana",
-            }}
-            onClick={() => scrollToSection(aboutRef)}
           >
-            Explore My Work
-          </motion.button>
-        </div>
-      </section>
+            <Typography variant="h3" fontWeight={700} mb={2}>
+              Hey, I'm Manas 👋
+            </Typography>
+          </motion.div>
+
+          {/* Bio */}
+          <motion.div
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <Typography
+              variant="body1"
+              sx={{
+                fontSize: '1.15rem',
+                color: '#444',
+                mb: 4,
+                maxWidth: '700px',
+                mx: 'auto',
+                lineHeight: 1.7,
+              }}
+            >
+              I’m a full-stack developer who loves turning ideas into impactful digital products. From crafting sleek UIs with React to building robust backends with Node.js and Firebase — I bring design and code together. Lately, I’m diving deep into AI and mobile development to build smarter, more connected experiences.
+            </Typography>
+          </motion.div>
+
+          {/* Buttons */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+          >
+            <Stack direction="row" spacing={2} justifyContent="center" mb={3}>
+              <Button
+                variant="contained"
+                size="large"
+                href="/Manas-Resume.pdf"
+                download
+                sx={{
+                  borderRadius: '30px',
+                  fontWeight: '600',
+                  px: 4,
+                  backgroundColor: '#333',
+                  '&:hover': {
+                    backgroundColor: '#555',
+                  },
+                }}
+              >
+                📄 Download Resume
+              </Button>
+              <Button
+                variant="outlined"
+                size="large"
+                href="#contact"
+                sx={{
+                  borderRadius: '30px',
+                  fontWeight: '600',
+                  px: 4,
+                  color: '#333',
+                  borderColor: '#333',
+                  '&:hover': {
+                    backgroundColor: '#f0f0f0',
+                    borderColor: '#333',
+                  },
+                }}
+              >
+                📬 Contact Me
+              </Button>
+            </Stack>
+          </motion.div>
+
+          {/* Socials */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+          >
+            <Stack direction="row" spacing={3} justifyContent="center">
+              <IconButton
+                component="a"
+                href="https://github.com/manassss"
+                target="_blank"
+                rel="noopener"
+                sx={{ color: '#333', fontSize: '1.5rem' }}
+              >
+                <FaGithub />
+              </IconButton>
+              <IconButton
+                component="a"
+                href="https://linkedin.com/in/manasmandlecha"
+                target="_blank"
+                rel="noopener"
+                sx={{ color: '#0a66c2', fontSize: '1.5rem' }}
+              >
+                <FaLinkedin />
+              </IconButton>
+              <IconButton
+                component="a"
+                href="mailto:manas.mandlecha.career@gmail.com"
+                sx={{ color: '#d44638', fontSize: '1.5rem' }}
+              >
+                <FaEnvelope />
+              </IconButton>
+            </Stack>
+          </motion.div>
+        </Container>
+      </Box>
 
       {/* Other Sections */}
       <About ref={aboutRef} />
@@ -133,7 +189,6 @@ Welcome!!!
       <Skills ref={skillsRef} />
       <Experience ref={experienceRef} />
       <Blog ref={blogRef} />
-      <Contact ref={contactRef} />
     </div>
   );
 };

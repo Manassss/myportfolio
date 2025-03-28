@@ -1,174 +1,175 @@
-import React from "react";
+import React from 'react';
+import {
+  Timeline,
+  TimelineItem,
+  TimelineSeparator,
+  TimelineConnector,
+  TimelineContent,
+  TimelineDot,
+  TimelineOppositeContent,
+} from '@mui/lab';
+import { Typography, Paper } from '@mui/material';
+import { FaBriefcase, FaGraduationCap } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
-const timelineData = {
-  education: [
-    {
-      year: "May 2022",
-      title: "Bachelor of Engineering (BE) in Computer Engineering",
-      institution: "All India Shree Shivaji Memorial Society (Institute of Information Technology), Pune, India",
-      details: "GPA: 3.33",
-    },
-    {
-      year: "September 2022 – June 2023",
-      title: "Software Engineer",
-      company: "Cybage Software Pvt Ltd, Pune, India",
-      details: [
-        "Delivered critical front-end solutions, achieving 100% on-time delivery across multiple releases.",
-        "Led efforts to reduce front-end errors by 30%, troubleshooting UI/UX and performance issues.",
-        "Optimized website performance, increasing user satisfaction by 15%.",
-        "Developed and maintained web applications, enhancing system scalability and efficiency.",
-        "Implemented best coding practices and automated testing strategies, ensuring high-quality deployment.",
-      ],
-    },
-    {
-      year: "September 2024 – Present",
-      title: "Full Stack Developer Intern",
-      company: "99 Yards, New York City, NY",
-      details: [
-        "Developed and maintained a dynamic admin dashboard, integrating Firebase API to manage client data.",
-        "Designed and executed a Python-based web scraping script to extract essential client website details.",
-        "Assisted in front-end and back-end development, ensuring seamless integration of React.js, Firebase, and Node.js.",
-        "Conducted rigorous iOS mobile application testing, enhancing cross-device compatibility.",
-        "Managed and deployed website updates, optimizing performance and user engagement.",
-      ],
-    },
+const experiences = [
+  {
+    type: 'Experience',
+    date: 'Jan 2025 – Present',
+    title: 'Full Stack Developer Intern',
+    company: '99 Yards, New York City, NY',
+    icon: <FaBriefcase />,
+    bullets: [
+      'Engineered a responsive admin dashboard with Firebase API to streamline client approvals and reduce manual workflows by 40%.',
+      'Created a Python script to auto-scrape About, Services, and Contact info from client websites — cutting onboarding time by 30%.',
+      'Improved site speed by 25% and pushed performance-based updates regularly to ensure optimal user experience.',
+      'Tested iOS mobile app across devices and resolved 15+ UI/UX issues, boosting cross-platform performance by 20%.',
+    ],
+  },
+  {
+    date: 'Sep 2023 – Dec 2024',
+    title: 'Full Stack Developer Intern (Phase 1)',
+    company: '99 Yards, New York City, NY',
+    icon: <FaBriefcase />,
+    bullets: ['Built and scaled internal tools and real-time dashboards for business insights.'],
+  },
+  {
+    date: 'Sep 2022 – Jun 2023',
+    title: 'Software Engineer',
+    company: 'Cybage Software, Pune, India',
+    icon: <FaBriefcase />,
+    bullets: [
+      'Delivered 10+ front-end features under strict timelines, maintaining a 100% on-time deployment rate.',
+      'Resolved 30% of critical UI bugs by improving troubleshooting workflows and preemptive debugging.',
+      'Led UI redesign efforts, improving mobile responsiveness and increasing user retention by 15%.',
+    ],
+  },
+];
 
-    {
-      year: "May 2025",
-      title: "Master of Science (MS) in Computer Science",
-      institution: "Pace University, Seidenberg School of Computer Science and Information Systems, NY, USA",
-      details: "Concentration: Computer Science | GPA: 3.95",
-    },
+const education = [
+  {
+    type: 'Education',
+    date: 'May 2025',
+    title: 'M.S. in Computer Science',
+    place: 'Pace University, NY, USA',
+    icon: <FaGraduationCap />,
+    detail: 'GPA: 3.95 | Focus: Software Engineering, AI, Full Stack Development',
+  },
+  {
+    date: 'May 2022',
+    title: 'B.E. in Computer Engineering',
+    place: 'AISSMS IOIT, Pune, India',
+    icon: <FaGraduationCap />,
+    detail: 'GPA: 3.33',
+  },
+];
 
-  ],
-  experience: [
-    
-  ],
-};
+const ExperienceEducation = () => {
+  const combined = [...education.reverse(), ...experiences.reverse()];
 
-const Timeline = () => {
   return (
-    <section id="experience">
-    <div className="timeline">
-      <div style={overlayStyle}>
-        <h2 style={sectionHeadingStyle}>📌 My Journey</h2>
-        <div style={timelineContainerStyle}>
-          {timelineData.education.map((item, index) => (
-            <TimelineItem key={index} item={item} />
-          ))}
-          {timelineData.experience.map((item, index) => (
-            <TimelineItem key={index} item={item} />
-          ))}
-        </div>
-      </div>
-    </div>
+    <section
+      id="experience"
+      style={{
+        background: 'linear-gradient(190deg, #9b4886, #f8f4ec)',
+        padding: '80px 20px',
+        fontFamily: "'Poppins', sans-serif",
+      }}
+    >
+      {/* Section Title Animation */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
+        <Typography
+          variant="h3"
+          align="center"
+          sx={{ mb: 5, color: 'black', fontWeight: 600 }}
+        >
+          📌 My Journey
+        </Typography>
+      </motion.div>
+
+      <Timeline position="alternate">
+        {combined.map((item, idx) => (
+          <TimelineItem
+            key={idx}
+            component={motion.div}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: idx * 0.15 }}
+            viewport={{ once: true }}
+          >
+            <TimelineOppositeContent
+              sx={{ m: 'auto 0' }}
+              align="right"
+              variant="body2"
+              color="text.secondary"
+            >
+              {item.date}
+            </TimelineOppositeContent>
+
+            <TimelineSeparator>
+              <TimelineDot color={item.type === 'Education' ? 'secondary' : 'primary'}>
+                {item.icon}
+              </TimelineDot>
+              <TimelineConnector />
+            </TimelineSeparator>
+
+            <TimelineContent sx={{ py: '12px', px: 2 }}>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: 'spring', stiffness: 100 }}
+              >
+                <Paper
+                  elevation={4}
+                  sx={{
+                    p: 3,
+                    borderRadius: 3,
+                    background: 'linear-gradient(135deg, #fff4f2, #fce8eb)',
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    component="span"
+                    sx={{ fontWeight: 'bold', color: '#9b4886' }}
+                  >
+                    {item.title}
+                  </Typography>
+                  <Typography variant="subtitle2" sx={{ mb: 1, color: '#444' }}>
+                    {item.place || item.company}
+                  </Typography>
+                  {item.detail && (
+                    <Typography variant="body2" sx={{ mb: 1, color: '#555' }}>
+                      {item.detail}
+                    </Typography>
+                  )}
+                  {item.bullets && (
+                    <ul style={{ paddingLeft: '20px', margin: 0 }}>
+                      {item.bullets.map((point, i) => (
+                        <li
+                          key={i}
+                          style={{
+                            fontSize: '0.95rem',
+                            marginBottom: '8px',
+                            color: '#555',
+                          }}
+                        >
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </Paper>
+              </motion.div>
+            </TimelineContent>
+          </TimelineItem>
+        ))}
+      </Timeline>
     </section>
   );
 };
 
-const TimelineItem = ({ item }) => {
-  return (
-    <div style={timelineItemStyle}>
-      <div style={timelineContentStyle}>
-        <h3 style={titleStyle}>{item.title}</h3>
-        <h4 style={institutionStyle}>{item.institution || item.company}</h4>
-        <h5 style={yearStyle}>{item.year}</h5>
-        {Array.isArray(item.details) ? (
-          <ul>
-            {item.details.map((point, index) => (
-              <li key={index} style={listItemStyle}>{point}</li>
-            ))}
-          </ul>
-        ) : (
-          <p style={detailsStyle}>{item.details}</p>
-        )}
-      </div>
-    </div>
-  );
-};
-
-// Styles
-const overlayStyle = {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  minHeight: "100vh",
-  padding: "40px 0",
-  fontFamily: "'Verdana', sans-serif",
-  fontWeight: "bold",
-};
-
-const sectionHeadingStyle = {
-  fontSize: "2.5rem",
-  fontWeight: "700",
-  color: "#003366", // Dark blue color
-  textAlign: "center",
-  marginBottom: "30px",
-};
-
-const timelineContainerStyle = {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  position: "relative",
-  width: "80%",
-  maxWidth: "800px",
-};
-
-const timelineItemStyle = {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  position: "relative",
-  width: "100%",
-  marginBottom: "40px",
-  paddingLeft: "20px",
-  borderLeft: "4px solid #007bff",
-};
-
-const timelineContentStyle = {
-  backgroundColor: "#f8f9fa",
-  padding: "15px 20px",
-  borderRadius: "10px",
-  boxShadow: "0 2px 6px rgba(0, 0, 0, 0.1)",
-  width: "90%",
-};
-
-const titleStyle = {
-  fontSize: "1.5rem",
-  color: "#007bff",
-  fontFamily: "'Verdana', sans-serif",
-  fontWeight: "bold",
-};
-
-const institutionStyle = {
-  fontSize: "1.2rem",
-  color: "#555",
-  fontFamily: "'Verdana', sans-serif",
-  fontWeight: "bold",
-};
-
-const yearStyle = {
-  fontSize: "1.1rem",
-  fontFamily: "'Verdana', sans-serif",
-  fontWeight: "bold",
-  color: "#777",
-  marginBottom: "10px",
-};
-
-const detailsStyle = {
-  fontSize: "1rem",
-  color: "#333",
-};
-
-const listItemStyle = {
-  fontSize: "1rem",
-  color: "#333",
-  marginBottom: "5px",
-  fontFamily: "'Verdana', sans-serif",
-  fontWeight: "bold",
-};
-
-export default Timeline;
+export default ExperienceEducation;
