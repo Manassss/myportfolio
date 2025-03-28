@@ -8,9 +8,10 @@ import {
   TimelineDot,
   TimelineOppositeContent,
 } from '@mui/lab';
-import { Typography, Paper } from '@mui/material';
+import { Typography, Paper, useMediaQuery } from '@mui/material';
 import { FaBriefcase, FaGraduationCap } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { useTheme } from '@mui/material/styles';
 
 const customTimeline = [
   {
@@ -65,6 +66,9 @@ const customTimeline = [
 ];
 
 const ExperienceEducation = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <section
       id="experience"
@@ -86,11 +90,11 @@ const ExperienceEducation = () => {
           align="center"
           sx={{ mb: 5, color: 'black', fontWeight: 600 }}
         >
-          📌 My Journey
+           My Journey
         </Typography>
       </motion.div>
 
-      <Timeline position="alternate">
+      <Timeline position={isMobile ? 'right' : 'alternate'}>
         {customTimeline.map((item, idx) => (
           <TimelineItem
             key={idx}
@@ -101,8 +105,11 @@ const ExperienceEducation = () => {
             viewport={{ once: true }}
           >
             <TimelineOppositeContent
-              sx={{ m: 'auto 0' }}
-              align="right"
+              sx={{
+                m: 'auto 0',
+                display: { xs: 'none', sm: 'block' },
+                textAlign: 'right',
+              }}
               variant="body2"
               color="text.secondary"
             >
@@ -116,7 +123,7 @@ const ExperienceEducation = () => {
               {idx !== customTimeline.length - 1 && <TimelineConnector />}
             </TimelineSeparator>
 
-            <TimelineContent sx={{ py: '12px', px: 2 }}>
+            <TimelineContent sx={{ py: 2, px: 2 }}>
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 100 }}
@@ -127,8 +134,9 @@ const ExperienceEducation = () => {
                     p: 3,
                     borderRadius: 3,
                     background: 'linear-gradient(135deg, #fff4f2, #fce8eb)',
-                    // width: 350,
-                    maxWidth: '100%',
+                    maxWidth: 380,
+                    width: '100%',
+                    mx: 'auto',
                   }}
                 >
                   <Typography
