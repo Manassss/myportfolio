@@ -12,7 +12,15 @@ import { Typography, Paper } from '@mui/material';
 import { FaBriefcase, FaGraduationCap } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
-const experiences = [
+const customTimeline = [
+  {
+    type: 'Education',
+    date: 'May 2025',
+    title: 'M.S. in Computer Science',
+    place: 'Pace University, NY, USA',
+    icon: <FaGraduationCap />,
+    detail: 'GPA: 3.95 | Focus: Software Engineering, AI, Full Stack Development',
+  },
   {
     type: 'Experience',
     date: 'Jan 2025 – Present',
@@ -21,12 +29,13 @@ const experiences = [
     icon: <FaBriefcase />,
     bullets: [
       'Engineered a responsive admin dashboard with Firebase API to streamline client approvals and reduce manual workflows by 40%.',
-      'Created a Python script to auto-scrape About, Services, and Contact info from client websites — cutting onboarding time by 30%.',
+      'Created a Python script to auto-scrape About, Services, and Contact info from client websites cutting onboarding time by 30%.',
       'Improved site speed by 25% and pushed performance-based updates regularly to ensure optimal user experience.',
       'Tested iOS mobile app across devices and resolved 15+ UI/UX issues, boosting cross-platform performance by 20%.',
     ],
   },
   {
+    type: 'Experience',
     date: 'Sep 2023 – Dec 2024',
     title: 'Full Stack Developer Intern (Phase 1)',
     company: '99 Yards, New York City, NY',
@@ -34,6 +43,7 @@ const experiences = [
     bullets: ['Built and scaled internal tools and real-time dashboards for business insights.'],
   },
   {
+    type: 'Experience',
     date: 'Sep 2022 – Jun 2023',
     title: 'Software Engineer',
     company: 'Cybage Software, Pune, India',
@@ -44,18 +54,8 @@ const experiences = [
       'Led UI redesign efforts, improving mobile responsiveness and increasing user retention by 15%.',
     ],
   },
-];
-
-const education = [
   {
     type: 'Education',
-    date: 'May 2025',
-    title: 'M.S. in Computer Science',
-    place: 'Pace University, NY, USA',
-    icon: <FaGraduationCap />,
-    detail: 'GPA: 3.95 | Focus: Software Engineering, AI, Full Stack Development',
-  },
-  {
     date: 'May 2022',
     title: 'B.E. in Computer Engineering',
     place: 'AISSMS IOIT, Pune, India',
@@ -65,8 +65,6 @@ const education = [
 ];
 
 const ExperienceEducation = () => {
-  const combined = [...education.reverse(), ...experiences.reverse()];
-
   return (
     <section
       id="experience"
@@ -76,7 +74,7 @@ const ExperienceEducation = () => {
         fontFamily: "'Poppins', sans-serif",
       }}
     >
-      {/* Section Title Animation */}
+      {/* Section Title */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -93,7 +91,7 @@ const ExperienceEducation = () => {
       </motion.div>
 
       <Timeline position="alternate">
-        {combined.map((item, idx) => (
+        {customTimeline.map((item, idx) => (
           <TimelineItem
             key={idx}
             component={motion.div}
@@ -115,7 +113,7 @@ const ExperienceEducation = () => {
               <TimelineDot color={item.type === 'Education' ? 'secondary' : 'primary'}>
                 {item.icon}
               </TimelineDot>
-              <TimelineConnector />
+              {idx !== customTimeline.length - 1 && <TimelineConnector />}
             </TimelineSeparator>
 
             <TimelineContent sx={{ py: '12px', px: 2 }}>
@@ -129,6 +127,8 @@ const ExperienceEducation = () => {
                     p: 3,
                     borderRadius: 3,
                     background: 'linear-gradient(135deg, #fff4f2, #fce8eb)',
+                    // width: 350,
+                    maxWidth: '100%',
                   }}
                 >
                   <Typography
@@ -142,7 +142,7 @@ const ExperienceEducation = () => {
                     {item.place || item.company}
                   </Typography>
                   {item.detail && (
-                    <Typography variant="body2" sx={{ mb: 1, color: '#555' }}>
+                    <Typography variant="body2" sx={{ mb: 1, color: '#555', textAlign: 'justify' }}>
                       {item.detail}
                     </Typography>
                   )}
@@ -155,6 +155,7 @@ const ExperienceEducation = () => {
                             fontSize: '0.95rem',
                             marginBottom: '8px',
                             color: '#555',
+                            textAlign: 'justify',
                           }}
                         >
                           {point}

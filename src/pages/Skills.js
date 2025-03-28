@@ -4,7 +4,8 @@ import {
   FaDatabase, FaGitAlt, FaGithub, FaDocker, FaAws, FaCloud
 } from 'react-icons/fa';
 import {
-  SiMongodb, SiTailwindcss, SiFirebase, SiKubernetes, SiGraphql, SiNextdotjs
+  SiMongodb, SiTailwindcss, SiFirebase, SiKubernetes, SiGraphql,
+  SiNextdotjs, SiTypescript, SiCplusplus
 } from 'react-icons/si';
 
 import {
@@ -24,8 +25,8 @@ const skillCategories = [
       { name: 'Python', icon: <FaPython /> },
       { name: 'Java', icon: <FaJava /> },
       { name: 'JavaScript', icon: <FaJsSquare /> },
-      { name: 'TypeScript', icon: <FaJsSquare style={{ color: '#3178c6' }} /> },
-      { name: 'C++', icon: <FaJava style={{ color: '#00a6d6' }} /> },
+      { name: 'TypeScript', icon: <SiTypescript /> }, // ✅ Correct icon
+      { name: 'C++', icon: <SiCplusplus /> },          // ✅ Correct icon
     ],
   },
   {
@@ -76,7 +77,6 @@ const Skills = forwardRef((props, ref) => (
       fontFamily: "'Poppins', sans-serif",
     }}
   >
-    {/* Animated section heading */}
     <motion.div
       initial={{ opacity: 0, y: -20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -88,14 +88,13 @@ const Skills = forwardRef((props, ref) => (
         align="center"
         sx={{ fontWeight: 600, mb: 5, color: 'black' }}
       >
-        🛠 My Tech Stack
+         My Tech Stack
       </Typography>
     </motion.div>
 
     <Grid container spacing={4} justifyContent="center" maxWidth="lg" sx={{ margin: '0 auto' }}>
       {skillCategories.map((category, idx) => (
         <Grid item xs={12} sm={6} md={4} key={idx}>
-          {/* Animate each card */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -110,6 +109,10 @@ const Skills = forwardRef((props, ref) => (
                 background: 'linear-gradient(135deg, #fff4f2, #fce8eb)',
                 color: '#333',
                 height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
                 transition: 'transform 0.3s ease',
                 '&:hover': {
                   transform: 'translateY(-6px)',
@@ -120,7 +123,7 @@ const Skills = forwardRef((props, ref) => (
                 {category.title}
               </Typography>
 
-              <Grid container spacing={2}>
+              <Grid container spacing={2} justifyContent="center">
                 {category.skills.map((skill, i) => (
                   <Grid
                     item
@@ -130,6 +133,7 @@ const Skills = forwardRef((props, ref) => (
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
+                      justifyContent: 'center',
                       gap: 1,
                     }}
                   >

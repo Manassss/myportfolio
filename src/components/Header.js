@@ -1,8 +1,8 @@
 import React from 'react';
 import { AppBar, Toolbar, Box, Typography, IconButton, Stack } from '@mui/material';
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { Link } from 'react-scroll';
 import { motion } from 'framer-motion';
+import { Github, Linkedin, Mail } from 'lucide-react'; // ✅ Sleek Lucide icons
 import gif from '../assests/home.gif';
 
 const navItems = [
@@ -110,40 +110,19 @@ const Header = () => {
             </Stack>
           </Box>
 
-          {/* Social + Resume */}
+          {/* Social Icons */}
           <Stack direction="row" spacing={2} alignItems="center">
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 }}
-            >
-              <a
-                href="/Manas-Resume.pdf"
-                download
-                title="Resume"
-                style={{
-                  fontSize: '1.2rem',
-                  color: '#2c2c2c',
-                  textDecoration: 'none',
-                  cursor: 'pointer',
-                }}
-              >
-                📄
-              </a>
-            </motion.div>
-
-            {/* Social Icons */}
             {[
               {
-                icon: <FaGithub />,
+                icon: <Github size={20} />,
                 link: 'https://github.com/manassss',
               },
               {
-                icon: <FaLinkedin />,
+                icon: <Linkedin size={20} />,
                 link: 'https://linkedin.com/in/manasmandlecha',
               },
               {
-                icon: <FaEnvelope />,
+                icon: <Mail size={20} />,
                 link: 'mailto:manas.mandlecha.career@gmail.com',
               },
             ].map((item, i) => (

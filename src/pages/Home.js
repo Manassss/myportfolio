@@ -1,7 +1,13 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Container, Box, Avatar, Typography, Button, Stack, IconButton } from '@mui/material';
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import {
+  Container,
+  Box,
+  Avatar,
+  Typography,
+  Button,
+  Stack
+} from '@mui/material';
 
 import Header from '../components/Header';
 import gifImage from '../assests/about.jpg';
@@ -11,6 +17,7 @@ import Skills from './Skills';
 import Experience from './ExperienceEducation';
 import Blog from './Blog';
 import About from './About';
+import Footer from './footer';
 
 const Home = () => {
   const aboutRef = useRef(null);
@@ -20,7 +27,14 @@ const Home = () => {
   const blogRef = useRef(null);
 
   return (
-    <div style={{ position: 'relative', minHeight: '100vh' }}>
+    <div
+      style={{
+        position: 'relative',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       {/* Background */}
       <div
         style={{
@@ -29,7 +43,6 @@ const Home = () => {
           left: 0,
           width: '100%',
           height: '100%',
-          background: `url(${gifImage}) no-repeat center center`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           zIndex: -1,
@@ -42,7 +55,7 @@ const Home = () => {
       <Box
         id="home"
         sx={{
-          height: '100vh',
+          minHeight: '100vh',
           background: 'linear-gradient(185deg, #9b4886, #f8f4ec)',
           pt: '100px',
           color: '#333',
@@ -50,7 +63,6 @@ const Home = () => {
         }}
       >
         <Container maxWidth="md" sx={{ textAlign: 'center' }}>
-          {/* Avatar */}
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -69,7 +81,6 @@ const Home = () => {
             />
           </motion.div>
 
-          {/* Heading */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -80,7 +91,6 @@ const Home = () => {
             </Typography>
           </motion.div>
 
-          {/* Bio */}
           <motion.div
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -97,11 +107,12 @@ const Home = () => {
                 lineHeight: 1.7,
               }}
             >
-              I’m a full-stack developer who loves turning ideas into impactful digital products. From crafting sleek UIs with React to building robust backends with Node.js and Firebase — I bring design and code together. Lately, I’m diving deep into AI and mobile development to build smarter, more connected experiences.
+              I’m a full-stack developer who loves turning ideas into impactful digital products.
+              From crafting sleek UIs with React to building robust backends with Node.js and Firebase.
+              I bring design and code together. Lately, I’m diving deep into AI and mobile development to build smarter, more connected experiences.
             </Typography>
           </motion.div>
 
-          {/* Buttons */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -128,7 +139,7 @@ const Home = () => {
               <Button
                 variant="outlined"
                 size="large"
-                href="#contact"
+                href="mailto:manas.mandlecha.career@gmail.com"
                 sx={{
                   borderRadius: '30px',
                   fontWeight: '600',
@@ -145,50 +156,18 @@ const Home = () => {
               </Button>
             </Stack>
           </motion.div>
-
-          {/* Socials */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-          >
-            <Stack direction="row" spacing={3} justifyContent="center">
-              <IconButton
-                component="a"
-                href="https://github.com/manassss"
-                target="_blank"
-                rel="noopener"
-                sx={{ color: '#333', fontSize: '1.5rem' }}
-              >
-                <FaGithub />
-              </IconButton>
-              <IconButton
-                component="a"
-                href="https://linkedin.com/in/manasmandlecha"
-                target="_blank"
-                rel="noopener"
-                sx={{ color: '#0a66c2', fontSize: '1.5rem' }}
-              >
-                <FaLinkedin />
-              </IconButton>
-              <IconButton
-                component="a"
-                href="mailto:manas.mandlecha.career@gmail.com"
-                sx={{ color: '#d44638', fontSize: '1.5rem' }}
-              >
-                <FaEnvelope />
-              </IconButton>
-            </Stack>
-          </motion.div>
         </Container>
       </Box>
 
-      {/* Other Sections */}
+      {/* Sections */}
       <About ref={aboutRef} />
       <Projects ref={projectsRef} />
       <Skills ref={skillsRef} />
       <Experience ref={experienceRef} />
       <Blog ref={blogRef} />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

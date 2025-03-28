@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useState } from 'react';
 import {
   Grid,
   Card,
@@ -9,38 +9,76 @@ import {
   Box,
   IconButton,
   Tooltip,
+  Dialog,
+  DialogContent,
+  IconButton as MuiIconButton,
+  Badge,
 } from '@mui/material';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaCamera } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-import restImage from '../assests/rest.png';
+import CloseIcon from '@mui/icons-material/Close';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-const projects = [
-  {
-    title: 'Smart Restaurant UI',
-    description:
-      'A dynamic React-based restaurant UI with responsive layout, menu browsing, and animated user interactions. Focused on creating smooth UI/UX experiences with reusable components.',
-    image: restImage,
-    tech: ['React', 'Bootstrap', 'Framer Motion'],
-    github: 'https://github.com/manassss/Restraunt_react',
-    demo: 'https://manassss.github.io/Restraunt_react/',
-  },
-  {
-    title: 'CVine',
-    description:
-      'CVine is a wine discovery platform that recommends wines using a hybrid machine learning model combining content-based and collaborative filtering. As team lead, I’m overseeing full-stack development (React + Flask + Firebase), model integration, and real-time querying.',
-    tech: ['React', 'Flask', 'Firebase', 'Machine Learning'],
-    inProgress: true,
-  },
-  {
-    title: 'PaceX',
-    description:
-      'PaceX is a social marketplace tailored for student entrepreneurs. I’m leading the project architecture, backend design, and real-time features (chat, stories, notifications). Users can create posts, join communities, sell products, and network in real time.',
-    tech: ['React', 'Node.js', 'MongoDB', 'Socket.IO'],
-    inProgress: true,
-  },
-];
+import restImage from '../assests/rest.png';
+import pacex1 from '../assests/pacex1.jpeg';
+import pacex2 from '../assests/pacex2.jpeg';
+import pacex3 from '../assests/pacex3.jpeg';
+import pacex4 from '../assests/pacex4.jpeg';
+import cvineImage from '../assests/CVine1.png';
 
 const Projects = forwardRef((props, ref) => {
+  const [openModal, setOpenModal] = useState(false);
+  const [modalImages, setModalImages] = useState([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const handleOpenGallery = (images) => {
+    setModalImages(images);
+    setCurrentImageIndex(0);
+    setOpenModal(true);
+  };
+
+  const handleNext = () => {
+    if (currentImageIndex < modalImages.length - 1) {
+      setCurrentImageIndex((prev) => prev + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentImageIndex > 0) {
+      setCurrentImageIndex((prev) => prev - 1);
+    }
+  };
+
+  const projects = [
+    {
+      title: 'Smart Restaurant UI',
+      description:
+        'A dynamic React-based restaurant UI with responsive layout, menu browsing, and animated user interactions. Focused on creating smooth UI/UX experiences with reusable components.',
+      image: restImage,
+      tech: ['React', 'Bootstrap', 'Framer Motion'],
+      github: 'https://github.com/manassss/Restraunt_react',
+      demo: 'https://manassss.github.io/Restraunt_react/',
+    },
+    {
+      title: 'CVine',
+      description:
+        'CVine is a wine discovery platform that recommends wines using a hybrid machine learning model combining content-based and collaborative filtering. As team lead, I’m overseeing full-stack development (React + Flask + Firebase), model integration, and real-time querying.',
+      tech: ['React', 'Flask', 'Firebase', 'Machine Learning'],
+      inProgress: true,
+      image: cvineImage, // ✅ add this line
+    },    
+    {
+      title: 'PaceX',
+      description:
+        'PaceX is a social marketplace tailored for student entrepreneurs. I’m leading the project architecture, backend design, and real-time features (chat, stories, notifications). Users can create posts, join communities, sell products, and network in real time.',
+      tech: ['React', 'Node.js', 'MongoDB', 'Socket.IO'],
+      inProgress: true,
+      image: pacex1,
+      gallery: [pacex1, pacex2, pacex3, pacex4],
+    },
+  ];
+
   return (
     <section
       id="projects"
@@ -51,7 +89,7 @@ const Projects = forwardRef((props, ref) => {
         fontFamily: "'Poppins', sans-serif",
       }}
     >
-      {/* Section Title Animation */}
+      {/* Title */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -63,7 +101,7 @@ const Projects = forwardRef((props, ref) => {
           align="center"
           sx={{ fontWeight: 600, color: 'black', mb: 5 }}
         >
-          🚀 My Projects
+           My Projects
         </Typography>
       </motion.div>
 
@@ -78,14 +116,7 @@ const Projects = forwardRef((props, ref) => {
         }}
       >
         {projects.map((project, index) => (
-          <Box
-            key={index}
-            sx={{
-              width: 330, // 🔧 Fixed width (adjustable)
-              display: 'flex',
-              
-            }}
-          >
+          <Box key={index} sx={{ width: 350, display: 'flex' }}>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -108,17 +139,45 @@ const Projects = forwardRef((props, ref) => {
                 }}
               >
                 {project.image && (
-                  <CardMedia
-                    component="img"
-                    height="180"
-                    image={project.image}
-                    alt={project.title}
-                  />
+                  <Box sx={{ position: 'relative' }}>
+                    <CardMedia
+                      component="img"
+                      height="180"
+                      image={project.image}
+                      alt={project.title}
+                      onClick={() =>
+                        project.gallery && handleOpenGallery(project.gallery)
+                      }
+                      sx={{
+                        cursor: project.gallery ? 'pointer' : 'default',
+                        borderRadius: '8px 8px 0 0',
+                      }}
+                    />
+                    {project.gallery && (
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          bottom: 8,
+                          right: 8,
+                          background: 'rgba(0,0,0,0.6)',
+                          color: '#fff',
+                          px: 1.5,
+                          py: 0.5,
+                          fontSize: '0.75rem',
+                          borderRadius: '12px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 1,
+                        }}
+                      >
+                        <FaCamera size={14} />
+                        View Gallery
+                      </Box>
+                    )}
+                  </Box>
                 )}
 
-                <CardContent
-                  sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}
-                >
+                <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                   <Box display="flex" justifyContent="space-between" alignItems="center">
                     <Typography
                       gutterBottom
@@ -142,11 +201,7 @@ const Projects = forwardRef((props, ref) => {
                     )}
                   </Box>
 
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ mb: 2, lineHeight: 1.6 }}
-                  >
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2, lineHeight: 1.6 }}>
                     {project.description}
                   </Typography>
 
@@ -197,6 +252,91 @@ const Projects = forwardRef((props, ref) => {
           </Box>
         ))}
       </Grid>
+
+      {/* Modal Image Viewer */}
+      <Dialog
+  open={openModal}
+  onClose={() => setOpenModal(false)}
+  maxWidth="md"
+  PaperProps={{
+    sx: {
+      backdropFilter: 'blur(8px)',
+      backgroundColor: 'rgba(0,0,0,0.7)',
+      borderRadius: 2,
+      boxShadow: 'none',
+    },
+  }}
+>
+  <DialogContent
+    sx={{
+      p: 0,
+      position: 'relative',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'transparent',
+    }}
+  >
+    {/* Close Button */}
+    <MuiIconButton
+      onClick={() => setOpenModal(false)}
+      sx={{
+        position: 'absolute',
+        top: 10,
+        right: 10,
+        color: '#fff',
+        zIndex: 2,
+      }}
+    >
+      <CloseIcon />
+    </MuiIconButton>
+
+    {/* Left Arrow */}
+    <MuiIconButton
+      onClick={handlePrev}
+      disabled={currentImageIndex === 0}
+      sx={{
+        position: 'absolute',
+        left: 10,
+        color: '#fff',
+        backgroundColor: 'rgba(0,0,0,0.3)',
+        '&:hover': { backgroundColor: 'rgba(0,0,0,0.5)' },
+      }}
+    >
+      <ArrowBackIosIcon />
+    </MuiIconButton>
+
+    {/* Right Arrow */}
+    <MuiIconButton
+      onClick={handleNext}
+      disabled={currentImageIndex === modalImages.length - 1}
+      sx={{
+        position: 'absolute',
+        right: 10,
+        color: '#fff',
+        backgroundColor: 'rgba(0,0,0,0.3)',
+        '&:hover': { backgroundColor: 'rgba(0,0,0,0.5)' },
+      }}
+    >
+      <ArrowForwardIosIcon />
+    </MuiIconButton>
+
+    {/* Image */}
+    {modalImages.length > 0 && (
+      <img
+        src={modalImages[currentImageIndex]}
+        alt={`gallery-${currentImageIndex}`}
+        style={{
+          width: '100%',
+          maxHeight: '80vh',
+          objectFit: 'contain',
+          borderRadius: '8px',
+        }}
+      />
+    )}
+  </DialogContent>
+</Dialog>
+
     </section>
   );
 });
