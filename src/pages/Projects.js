@@ -76,6 +76,10 @@ const Projects = forwardRef((props, ref) => {
       inProgress: true,
       image: pacex1,
       gallery: [pacex1, pacex2, pacex3, pacex4],
+      demo: 'https://pacedev.vercel.app',
+      github: 'https://github.com/Manassss/PaceX',
+      username: 'as44927n@pace.edu',
+      password: '123sid',
     },
   ];
 
@@ -238,7 +242,7 @@ const Projects = forwardRef((props, ref) => {
                       </Tooltip>
                     )}
                     {project.demo && (
-                      <Tooltip title="Live Demo">
+                      <Tooltip title={project.demo}>
                         <IconButton
                           href={project.demo}
                           target="_blank"
@@ -250,6 +254,16 @@ const Projects = forwardRef((props, ref) => {
                       </Tooltip>
                     )}
                   </Box>
+                  {project.username && project.password && (
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ mt: 1 }}
+                    >
+                      <strong>Login:</strong> {project.username} &nbsp;
+                      <strong>Pass:</strong> {project.password}
+                    </Typography>
+                  )}
                 </CardContent>
               </Card>
             </motion.div>

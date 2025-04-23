@@ -122,7 +122,7 @@ const Home = () => {
               <Button
                 variant="contained"
                 size="large"
-                href={`${process.env.PUBLIC_URL}/Manas-Resume.pdf`}
+                href={`${process.env.PUBLIC_URL}/Manas_Mandlecha_Software_Engineer.pdf`}
                 download
                 sx={{
                   borderRadius: '30px',
