@@ -1,21 +1,16 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useState, useRef, useEffect } from 'react';
 import {
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
   Typography,
-  Chip,
   Box,
   IconButton,
-  Tooltip,
   Dialog,
-  DialogContent,
   IconButton as MuiIconButton,
-  Badge,
+  Button,
+  Tooltip,
 } from '@mui/material';
-import { FaGithub, FaExternalLinkAlt, FaCamera } from 'react-icons/fa';
+import { useTheme } from '@mui/material/styles';
 import { motion } from 'framer-motion';
+import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -26,6 +21,16 @@ import pacex2 from '../assests/pacex2.jpeg';
 import pacex3 from '../assests/pacex3.jpeg';
 import pacex4 from '../assests/pacex4.jpeg';
 import cvineImage from '../assests/CVine1.png';
+import cvine1 from '../assests/CVine_1.jpg';
+import cvine2 from '../assests/CVine_2.jpg';
+import cvine3 from '../assests/CVine_3.jpg';
+import cvine4 from '../assests/CVine_4.jpg';
+import cvine5 from '../assests/CVine_5.jpg';
+import cvine6 from '../assests/CVine_6.jpg';
+import cvine7 from '../assests/CVine_7.jpg';
+import cvine8 from '../assests/CVine_8.jpg';
+import cvine9 from '../assests/CVine_9.jpg';
+import cvine10 from '../assests/CVine_10.jpg';
 
 const Projects = forwardRef((props, ref) => {
   const [openModal, setOpenModal] = useState(false);
@@ -64,10 +69,14 @@ const Projects = forwardRef((props, ref) => {
       title: 'CVine',
       description:
         'CVine is a wine discovery platform that recommends wines using a hybrid machine learning model combining content-based and collaborative filtering. As team lead, I’m overseeing full-stack development (React + Flask + Firebase), model integration, and real-time querying.',
-      tech: ['React', 'Flask', 'Firebase', 'Machine Learning'],
+      image: cvineImage,
+      tech: ['React Native', 'Flask', 'Firebase', 'Machine Learning'],
+      gallery: [cvine1, cvine2, cvine3, cvine4, cvine5, cvine6, cvine7, cvine8, cvine9, cvine10],
+      frontend: 'https://github.com/siddharth101998/Cvine-Expo.git',
+      backend: 'https://github.com/Manassss/CVine.git',
+      demo: '',
       inProgress: true,
-      image: cvineImage, // ✅ add this line
-    },    
+    },
     {
       title: 'PaceX',
       description:
@@ -76,200 +85,199 @@ const Projects = forwardRef((props, ref) => {
       inProgress: true,
       image: pacex1,
       gallery: [pacex1, pacex2, pacex3, pacex4],
+      frontend: 'https://github.com/Manassss/PaceX.git',
       demo: 'https://pacedev.vercel.app',
-      github: 'https://github.com/Manassss/PaceX',
       username: 'as44927n@pace.edu',
       password: '123sid',
     },
   ];
 
+  const theme = useTheme();
+  const carouselRef = useRef(null);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (carouselRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+        const maxScroll = scrollWidth - clientWidth;
+        const next = scrollLeft + clientWidth;
+        carouselRef.current.scrollTo({
+          left: next > maxScroll ? 0 : next,
+          behavior: 'smooth',
+        });
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
   return (
-    <section
+    <motion.section
+      component="section"
       id="projects"
       ref={ref}
-      style={{
-        background: 'linear-gradient(185deg, #9b4886, #f8f4ec)',
-        padding: '80px 20px',
-        fontFamily: "'Poppins', sans-serif",
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6 }}
+      sx={{
+        scrollSnapAlign: 'start',
+        scrollMarginTop: 64,
+        bgcolor: 'common.black',
+        py: { xs: 8, sm: 12 },
       }}
     >
       {/* Title */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-      >
-        <Typography
-          variant="h3"
-          align="center"
-          sx={{ fontWeight: 600, color: 'black', mb: 5 }}
-        >
-           My Projects
-        </Typography>
-      </motion.div>
-
-      {/* Project Cards */}
-      <Grid
-        container
-        justifyContent="center"
+      <Typography
+        variant="h3"
+        align="center"
         sx={{
-          flexWrap: 'wrap',
-          rowGap: 4,
-          columnGap: 4,
+          fontWeight: 600,
+          mb: 5,
+          background: theme => `linear-gradient(90deg, #9b4886, #c08497)`,
+          WebkitBackgroundClip: 'text',
+          color: 'transparent',
         }}
       >
-        {projects.map((project, index) => (
-          <Box key={index} sx={{ width: 350, display: 'flex' }}>
+         Projects
+      </Typography>
+
+      <Box sx={{ position: 'relative', mt: 4 }}>
+        <IconButton
+          onClick={() =>
+            carouselRef.current?.scrollBy({ left: -window.innerWidth, behavior: 'smooth' })
+          }
+          sx={{
+            position: 'absolute',
+            left: '5%',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            color: 'common.white',
+            zIndex: 10,
+          }}
+        >
+          <ArrowBackIosIcon />
+        </IconButton>
+        <IconButton
+          onClick={() =>
+            carouselRef.current?.scrollBy({ left: window.innerWidth, behavior: 'smooth' })
+          }
+          sx={{
+            position: 'absolute',
+            right: '5%',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            color: 'common.white',
+            zIndex: 10,
+          }}
+        >
+          <ArrowForwardIosIcon />
+        </IconButton>
+
+      <Box
+        sx={{
+          display: 'flex',
+          overflowX: 'auto',
+          overflowY: 'hidden',
+          scrollSnapType: 'x mandatory',
+          scrollBehavior: 'smooth',
+          gap: { xs: 0, sm: 4 },
+          pt: 4,
+          pb: 4,
+          flexWrap: { xs: 'nowrap', sm: 'nowrap' },
+          '&::-webkit-scrollbar': { display: 'none' },
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+        }}
+        ref={carouselRef}
+      >
+        {projects.map((proj, i) => (
+          <Box
+            key={i}
+            sx={{
+              flex: '0 0 100vw',
+              scrollSnapAlign: 'center',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
+              whileHover={{ scale: 1.03, boxShadow: '0 12px 28px rgba(0,0,0,0.3)' }}
+              transition={{ duration: 0.6, delay: i * 0.2 }}
               viewport={{ once: true }}
-              style={{ width: '100%' }}
+              style={{ width: '80%', maxWidth: 600 }}
             >
-              <Card
-                elevation={6}
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  background: 'linear-gradient(135deg, #fff4f2, #fce8eb)',
-                  borderRadius: 3,
-                  height: '100%',
-                  transition: 'transform 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-6px)',
-                  },
-                }}
-              >
-                {project.image && (
-                  <Box sx={{ position: 'relative' }}>
-                    <CardMedia
-                      component="img"
-                      height="180"
-                      image={project.image}
-                      alt={project.title}
-                      onClick={() =>
-                        project.gallery && handleOpenGallery(project.gallery)
-                      }
-                      sx={{
-                        cursor: project.gallery ? 'pointer' : 'default',
-                        borderRadius: '8px 8px 0 0',
-                      }}
-                    />
-                    {project.gallery && (
-                     <Box
-                     onClick={() => handleOpenGallery(project.gallery)}
-                     sx={{
-                       position: 'absolute',
-                       bottom: 8,
-                       right: 8,
-                       background: 'rgba(0,0,0,0.6)',
-                       color: '#fff',
-                       px: 1.5,
-                       py: 0.5,
-                       fontSize: '0.75rem',
-                       borderRadius: '12px',
-                       display: 'flex',
-                       alignItems: 'center',
-                       gap: 1,
-                       cursor: 'pointer',
-                       '&:hover': { background: 'rgba(0,0,0,0.8)' },
-                     }}
-                   >
-                     <FaCamera size={14} />
-                     View Gallery
-                   </Box>
-                   
-                    )}
+              <Box sx={{
+                transition: 'transform 0.2s, box-shadow 0.2s',
+                border: '1px solid',
+                borderColor: 'primary.main',
+                borderRadius: 2,
+                p: 2,
+              }}>
+              <Box
+                component="img"
+                src={proj.image}
+                alt={proj.title}
+                sx={{ width: '100%', height: 240, objectFit: 'cover', borderRadius: 2, mb: 2 }}
+              />
+              <Typography variant="h5" sx={{ color: 'common.white', fontWeight: 600, mb: 1 }}>
+                {proj.title}
+              </Typography>
+              <Typography variant="body1" sx={{ color: 'common.white', mb: 2, lineHeight: 1.6 }}>
+                {proj.description}
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
+                {proj.tech.map((tech, idx) => (
+                  <Box
+                    key={idx}
+                    sx={{
+                      px: 2,
+                      py: 0.5,
+                      bgcolor: 'primary.main',
+                      color: 'common.white',
+                      borderRadius: 1,
+                      fontSize: '0.75rem',
+                    }}
+                  >
+                    {tech}
                   </Box>
+                ))}
+              </Box>
+              <Box sx={{ display: 'flex', gap: 1 }}>
+                {proj.frontend && (
+                  <Tooltip title="Frontend Repo">
+                    <IconButton href={proj.frontend} target="_blank" sx={{ color: theme.palette.primary.main }}>
+                      <FaGithub />
+                    </IconButton>
+                  </Tooltip>
                 )}
-
-                <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                  <Box display="flex" justifyContent="space-between" alignItems="center">
-                    <Typography
-                      gutterBottom
-                      variant="h6"
-                      component="div"
-                      sx={{ fontWeight: 600, color: '#9b4886' }}
-                    >
-                      {project.title}
-                    </Typography>
-                    {project.inProgress && (
-                      <Chip
-                        label="In Progress"
-                        size="small"
-                        sx={{
-                          backgroundColor: '#e91e63',
-                          color: '#fff',
-                          fontSize: '0.7rem',
-                          fontWeight: 'bold',
-                        }}
-                      />
-                    )}
-                  </Box>
-
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2, lineHeight: 1.6 }}>
-                    {project.description}
-                  </Typography>
-
-                  <Box display="flex" flexWrap="wrap" gap={1} mb={2}>
-                    {project.tech.map((tech, i) => (
-                      <Chip
-                        key={i}
-                        label={tech}
-                        size="small"
-                        sx={{
-                          backgroundColor: '#9b4886',
-                          color: '#fff',
-                          fontSize: '0.75rem',
-                        }}
-                      />
-                    ))}
-                  </Box>
-
-                  <Box display="flex" gap={1} mt="auto">
-                    {project.github && (
-                      <Tooltip title="View on GitHub">
-                        <IconButton
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener"
-                          sx={{ color: '#9b4886' }}
-                        >
-                          <FaGithub />
-                        </IconButton>
-                      </Tooltip>
-                    )}
-                    {project.demo && (
-                      <Tooltip title={project.demo}>
-                        <IconButton
-                          href={project.demo}
-                          target="_blank"
-                          rel="noopener"
-                          sx={{ color: '#9b4886' }}
-                        >
-                          <FaExternalLinkAlt />
-                        </IconButton>
-                      </Tooltip>
-                    )}
-                  </Box>
-                  {project.username && project.password && (
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{ mt: 1 }}
-                    >
-                      <strong>Login:</strong> {project.username} &nbsp;
-                      <strong>Pass:</strong> {project.password}
-                    </Typography>
-                  )}
-                </CardContent>
-              </Card>
+                {proj.backend && (
+                  <Tooltip title="Backend Repo">
+                    <IconButton href={proj.backend} target="_blank" sx={{ color: theme.palette.primary.main }}>
+                      <FaGithub />
+                    </IconButton>
+                  </Tooltip>
+                )}
+                {proj.demo && (
+                  <IconButton href={proj.demo} target="_blank" sx={{ color: theme.palette.primary.main }}>
+                    <FaExternalLinkAlt />
+                  </IconButton>
+                )}
+                {proj.gallery && (
+                  <Button
+                    size="small"
+                    sx={{ color: theme.palette.primary.main }}
+                    onClick={() => handleOpenGallery(proj.gallery)}
+                  >
+                    View Screenshots
+                  </Button>
+                )}
+              </Box>
+              </Box>
             </motion.div>
           </Box>
         ))}
-      </Grid>
+      </Box>
+      </Box>
 
       {/* Modal Image Viewer */}
       <Dialog
@@ -351,9 +359,9 @@ const Projects = forwardRef((props, ref) => {
       }}
     />
   )}
-</Dialog>
+    </Dialog>
 
-    </section>
+    </motion.section>
   );
 });
 

@@ -5,10 +5,14 @@ const Footer = () => {
   return (
     <Box
       sx={{
-        background: 'linear-gradient(180deg, #9b4886, #f8f4ec)',
+        background: 'black',
+        borderTop: '4px solid',
+        borderImageSlice: 1,
+        borderImageSource: 'linear-gradient(90deg, #9b4886, #c08497)',
+        borderRadius: '0 0 8px 8px',
         color: '#fff',
         textAlign: 'center',
-        py: { xs: 4, sm: 5 },
+        py: { xs: 6, sm: 7 },
         px: { xs: 2, sm: 4 },
         fontFamily: "'Poppins', sans-serif",
       }}
@@ -20,7 +24,7 @@ const Footer = () => {
             mb: 1,
             fontWeight: 500,
             fontSize: { xs: '1rem', sm: '1.1rem' },
-            color: 'black',
+            color: '#fff',
           }}
         >
            Thank you for scrolling through my journey!
@@ -30,18 +34,18 @@ const Footer = () => {
           variant="body2"
           sx={{
             fontSize: { xs: '0.9rem', sm: '1rem' },
-            color: 'black',
+            color: '#fff',
             mb: 1,
           }}
         >
-          Whether you're here for inspiration, collaboration, or curiosity — I appreciate your time. 
+          Whether you're here for inspiration, collaboration, or curiosity. I appreciate your time. 
         </Typography>
 
         <Typography
           variant="body2"
           sx={{
             fontSize: { xs: '0.8rem', sm: '0.95rem' },
-            color: 'black',
+            color: 'primary.light',
           }}
         >
           © {new Date().getFullYear()} Manas Mandlecha • Built with React,  passion & coffee

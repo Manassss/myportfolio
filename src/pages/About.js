@@ -1,160 +1,147 @@
 import React, { forwardRef } from 'react';
-import { Grid, Typography, Paper, Box } from '@mui/material';
-import { FaGamepad, FaMusic, FaPlane } from 'react-icons/fa';
+import {
+  Box,
+  Typography
+} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { motion } from 'framer-motion';
-import { SiSitepoint } from "react-icons/si";
+import { Grid, Paper } from '@mui/material';
+import { FaHtml5, FaCss3Alt, FaReact, FaNodeJs, FaPython, FaAws, FaDocker } from 'react-icons/fa';
+import { SiFigma } from 'react-icons/si';
 
 const About = forwardRef((props, ref) => {
   return (
-    <section
+    <Box
+      component="section"
       id="about"
       ref={ref}
-      style={{
-        background: 'linear-gradient(355deg, #9b4886, #f8f4ec)',
-        padding: '80px 20px',
-        fontFamily: "'Poppins', sans-serif",
-        overflow: 'hidden',
+      sx={{
+        scrollSnapAlign: 'start',
+        scrollMarginTop: 64,
+        bgcolor: 'common.black',
+        py: { xs: 6, sm: 10 },
       }}
     >
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
+      <Typography
+        variant="h3"
+        align="center"
+        sx={{
+          fontWeight: 700,
+          pt: 8,
+          mb: 6,
+          background: theme => `linear-gradient(90deg, #9b4886, #c08497)`,
+          WebkitBackgroundClip: 'text',
+          color: 'transparent',
+        }}
       >
-        <Typography
-          variant="h3"
-          align="center"
-          sx={{ fontWeight: 600, mb: 5, color: 'black' }}
-        >
-          Get to Know Me
-        </Typography>
-      </motion.div>
+        My Full-Stack Odyssey & Beyond
+      </Typography>
 
       <Grid
         container
         spacing={4}
         justifyContent="center"
-        sx={{ margin: '0 auto', maxWidth: '1200px' }}
+        alignItems="stretch"
+        wrap="wrap"
+        sx={{ maxWidth: 900, mx: 'auto' }}
       >
         {aboutSections.map((section, i) => (
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            key={i}
-            sx={{ display: 'flex', justifyContent: 'center' }}
-          >
+          <Grid item xs={12} sm={6} key={i} sx={{ display: 'flex' }}>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              whileHover={{ scale: 1.03 }}
               transition={{ duration: 0.6, delay: i * 0.2 }}
-              style={{ width: '100%' }}
+              viewport={{ once: true }}
             >
-              <Paper sx={styles.card} elevation={4}>
-                <Typography variant="h5" sx={styles.title}>
+                <Paper
+                  elevation={4}
+                  sx={{
+                    p: 5,
+                    bgcolor: 'background.default',
+                    borderRadius: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    maxWidth: 400,
+                    borderLeft: '2px solid',
+                    mb: 4,
+                    borderColor: 'primary.main',
+                    transition: 'transform 0.2s, box-shadow 0.2s',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: '0 12px 24px rgba(0,0,0,0.5)',
+                    },
+                  }}
+                >
+                <Box sx={{ fontSize: 48, color: theme => theme.palette.primary.main }}>
+                  {section.icon}
+                </Box>
+                <Typography variant="subtitle2" sx={{ mt: 1, color: 'primary.main', fontWeight: 500, letterSpacing: '1px' }}>
+                  {section.phase}
+                </Typography>
+                <Typography variant="h5" sx={{ my: 1, color: 'common.white', fontWeight: 600 }}>
                   {section.title}
                 </Typography>
-                {section.content.map((text, idx) =>
-                  typeof text === 'string' ? (
-                    <Typography key={idx} sx={styles.text}>
-                      {text}
-                    </Typography>
-                  ) : (
-                    <ul key={idx} style={styles.list}>
-                      {text.map((item, i) => (
-                        <li key={i} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                          <span style={{ marginRight: '6px' }}>{item.icon}</span> {item.text}
-                        </li>
-                      ))}
-                    </ul>
-                  )
-                )}
+                <Box component="ul" sx={{ pl: 2, mt: 2, textAlign: 'left' }}>
+                  {section.bullets.map((bullet, idx) => (
+                    <Box component="li" key={idx} sx={{ color: 'text.secondary', lineHeight: 1.6, mb: 1 }}>
+                      {bullet}
+                    </Box>
+                  ))}
+                </Box>
               </Paper>
             </motion.div>
           </Grid>
         ))}
       </Grid>
-    </section>
+    </Box>
   );
 });
 
 const aboutSections = [
   {
-    title: ' Who I Am',
-    content: [
-      `I’m Manas, a full-stack developer passionate about building scalable digital products. I specialize in frontend finesse using React and robust backend logic using Node.js, Firebase, and MongoDB.`,
-      `I believe software is the ultimate expression of creativity and problem-solving.`,
-      `I’ve led CVine and PaceX — platforms pushing the boundaries of AI and community-driven solutions.`,
+    phase: '• Frontend Foundations',
+    title: 'Crafting Pixel-Perfect UI',
+    icon: <FaHtml5 />,
+    color: 'error',
+    bullets: [
+      "Built responsive layouts with HTML5, CSS3, and modern frameworks like React and Tailwind.",
+      "Focused on accessibility, performance, and intuitive interactions."
     ],
   },
   {
-    title: ' What Drives Me',
-    content: [
-      `I'm always eager to solve problems, grow fast, and build amazing things with passionate people.`,
-      [
-        { icon: <SiSitepoint />, text: 'Leading teams and bringing ideas to life' },
-        { icon: <SiSitepoint />, text: 'Designing systems that scale' },
-        { icon: <SiSitepoint />, text: 'Exploring AI, cloud, and mobile tech' },
-      ],
-      `I aim to blend logic and design to build usable, scalable, and delightful software.`,
+    phase: '• Backend & APIs',
+    title: 'Engineered Robust Services',
+    icon: <FaNodeJs />,
+    color: 'secondary',
+    bullets: [
+      "Developed scalable REST & GraphQL APIs with Node.js, Flask, and FastAPI.",
+      "Integrated databases (MongoDB, PostgreSQL) and optimized data flows."
     ],
   },
   {
-    title: ' Beyond the Code',
-    content: [
-      `I explore cultures, tech meetups, and sonic landscapes that shape how I code and think.`,
-      [
-        { icon: <FaGamepad />, text: 'Strategy/RPG gamer — love narrative-driven worlds' },
-        { icon: <FaMusic />, text: 'Music fuels my flow — lo-fi, EDM, ambient' },
-        { icon: <FaPlane />, text: 'Travel inspires perspective & creativity' },
-      ],
-      `I'm always testing out side projects — tools, hacks, and fun experiments.`,
+    phase: '• Cloud & DevOps',
+    title: 'Deploying at Scale',
+    icon: <FaAws />,
+    color: 'warning',
+    bullets: [
+      "Automated CI/CD pipelines and containerized apps using Docker & Kubernetes.",
+      "Deployed on AWS, leveraging Lambda, S3, and RDS for reliability."
+    ],
+  },
+  {
+    phase: '• Design & UX',
+    title: 'Shaping Engaging Experiences',
+    icon: <SiFigma />,
+    color: 'info',
+    bullets: [
+      "Prototyped in Figma and refined interactions through user feedback.",
+      "Blended design principles with code to create cohesive brand experiences."
     ],
   },
 ];
-
-const styles = {
-  card: {
-    p: 3,
-    width: '100%',
-    maxWidth: 360,
-    minHeight: 400,
-    borderRadius: 4,
-    background: 'linear-gradient(135deg, #fff4f2, #fce8eb)',
-    color: '#333',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    textAlign: 'left',
-    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-    '&:hover': {
-      transform: 'translateY(-5px)',
-      boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
-    },
-  },
-  title: {
-    fontWeight: 600,
-    fontSize: '1.4rem',
-    color: '#9b4886',
-    mb: 2,
-  },
-  text: {
-    fontSize: '1rem',
-    lineHeight: 1.7,
-    mb: 2,
-    color: '#444',
-  },
-  list: {
-    listStyle: 'none',
-    paddingLeft: 0,
-    marginBottom: '16px',
-    color: '#444',
-    fontSize: '0.95rem',
-    lineHeight: '1.8rem',
-  },
-};
 
 export default About;
