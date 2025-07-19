@@ -174,9 +174,7 @@ const Home = () => {
                       textAlign: { xs: 'center', md: 'left' },
                     }}
                   >
-                    I’m a full-stack developer who loves turning ideas into impactful digital products.
-                    From crafting sleek UIs with React to building robust backends with Node.js and Firebase.
-                    I bring design and code together. Lately, I’m diving deep into AI and mobile development to build smarter, more connected experiences.
+                    I’m a full stack developer passionate about building scalable web and mobile apps. I specialize in React, Spring Boot, and Firebase to create seamless, performant user experiences. With a Master’s in Computer Science from Pace University and experience in both startups and enterprise settings, I focus on writing clean, efficient code backed by thoughtful design and real-world impact.
                   </Typography>
                 </m.div>
 

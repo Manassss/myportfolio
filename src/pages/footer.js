@@ -27,7 +27,7 @@ const Footer = () => {
             color: '#fff',
           }}
         >
-           Thank you for scrolling through my journey!
+           Thank you for exploring my portfolio!
         </Typography>
 
         <Typography
@@ -38,7 +38,7 @@ const Footer = () => {
             mb: 1,
           }}
         >
-          Whether you're here for inspiration, collaboration, or curiosity. I appreciate your time. 
+          Whether you're here for inspiration, collaboration, or curiosity, I truly appreciate your time and interest.
         </Typography>
 
         <Typography
@@ -48,7 +48,7 @@ const Footer = () => {
             color: 'primary.light',
           }}
         >
-          © {new Date().getFullYear()} Manas Mandlecha • Built with React,  passion & coffee
+          © {new Date().getFullYear()} Manas Mandlecha • Designed & built with React, passion, and coffee.
         </Typography>
       </Container>
     </Box>

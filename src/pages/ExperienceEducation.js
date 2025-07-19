@@ -22,19 +22,21 @@ const customTimeline = [
     place: 'Pace University, NY, USA',
     icon: <FaGraduationCap />,
     detail: 'GPA: 3.90 | Focus: Software Engineering, AI, Full Stack Development',
+    skills: ['Software Engineering', 'AI', 'Full Stack Development'],
   },
   {
     type: 'Experience',
-    date: 'Sep 2024 – May 2025',
+    date: 'Sep 2024 – Present',
     title: 'Full Stack Developer Intern',
     company: '99 Yards, New York City, NY',
     icon: <FaBriefcase />,
     bullets: [
       'Spearheaded end-to-end development of a full-stack onboarding platform using React.js, Spring Boot, and MongoDB, automating 70% of manual client intake processes.',
-      'Built and deployed a Python-based data scraper that accelerated data population during login, boosting operational efficiency by 40%.',
+      'Built and deployed a Python-based data scraper that accelerated data population during login, Boosted operational efficiency by 40%.',
       'Authored and integrated Swagger/OpenAPI docs into CI/CD workflows, reducing integration errors by 30% and enhancing QA coverage.',
-      'Collaborated with UX designers to refine onboarding flows, improving user satisfaction scores by 25%.'
+      'Collaborated with UX designers to refine onboarding flows, Improving user satisfaction scores by 25%.'
     ],
+    skills: ['React.js', 'Spring Boot', 'MongoDB', 'CI/CD', 'Python', 'Swagger', 'Agile'],
   },
   {
     type: 'Experience',
@@ -48,6 +50,7 @@ const customTimeline = [
       'Acted as sprint lead in Agile workflows, mentoring junior developers and running code reviews to increase team velocity by 30%.',
       'Implemented automated end-to-end testing with Cypress, cutting regression defects by 50%.'
     ],
+    skills: ['Angular', 'TypeScript', 'Redux', 'Context API', 'Cypress', 'Agile'],
   },
   {
     type: 'Education',
@@ -56,6 +59,7 @@ const customTimeline = [
     place: 'AISSMS IOIT, Pune, India',
     icon: <FaGraduationCap />,
     detail: 'GPA: 3.33 | Focus: Software Engineering, Full Stack Development',
+    skills: ['Software Engineering', 'Full Stack Development'],
   },
 ];
 
@@ -250,6 +254,11 @@ const ExperienceEducation = () => {
                           </ListItem>
                         ))}
                       </List>
+                    )}
+                    {item.skills && (
+                      <Typography variant="caption" sx={{ color: 'grey.600', fontStyle: 'italic', mt: 1, display: 'block' }}>
+                        Tech/Focus: {item.skills.join(', ')}
+                      </Typography>
                     )}
                   </Paper>
                 </motion.div>
