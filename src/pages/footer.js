@@ -12,43 +12,30 @@ const Footer = () => {
         borderRadius: '0 0 8px 8px',
         color: '#fff',
         textAlign: 'center',
-        py: { xs: 6, sm: 7 },
+        py: { xs: 3, sm: 4 },
         px: { xs: 2, sm: 4 },
         fontFamily: "'Poppins', sans-serif",
       }}
     >
       <Container maxWidth="md">
         <Typography
-          variant="body1"
+          variant="body2"
           sx={{
-            mb: 1,
-            fontWeight: 500,
-            fontSize: { xs: '1rem', sm: '1.1rem' },
-            color: '#fff',
+            fontSize: { xs: '0.8rem', sm: '0.9rem' },
+            color: 'grey.600',
+            mb: 0.5,
           }}
         >
-           Thank you for exploring my portfolio!
+          Built with React + MUI + Framer Motion
         </Typography>
-
         <Typography
           variant="body2"
           sx={{
-            fontSize: { xs: '0.9rem', sm: '1rem' },
-            color: '#fff',
-            mb: 1,
-          }}
-        >
-          Whether you're here for inspiration, collaboration, or curiosity, I truly appreciate your time and interest.
-        </Typography>
-
-        <Typography
-          variant="body2"
-          sx={{
-            fontSize: { xs: '0.8rem', sm: '0.95rem' },
+            fontSize: { xs: '0.8rem', sm: '0.9rem' },
             color: 'primary.light',
           }}
         >
-          © {new Date().getFullYear()} Manas Mandlecha • Designed & built with React, passion, and coffee.
+          © {new Date().getFullYear()} Manas Mandlecha
         </Typography>
       </Container>
     </Box>

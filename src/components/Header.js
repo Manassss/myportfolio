@@ -22,10 +22,11 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 const navItems = [
   { id: 'about', label: 'About' },
+  { id: 'experience', label: 'Experience' },
   { id: 'projects', label: 'Projects' },
   { id: 'skel', label: 'Skills' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'blog', label: 'Blog' },
+  { id: 'blog', label: 'Writing' },
+  { id: 'contact', label: 'Contact' },
 ];
 
 const Header = () => {
@@ -42,15 +43,18 @@ const Header = () => {
         position="fixed"
         elevation={1}
         sx={{
-          bgcolor: 'rgba(0,0,0,0.7)',
-          backdropFilter: 'blur(8px)',
+          bgcolor: 'rgba(6,6,15,0.85)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderBottom: '1px solid rgba(155,72,134,0.15)',
           color: 'common.white',
           transition: 'all 0.3s ease',
-          height: trigger ? 56 : 80,
+          height: trigger ? 56 : 72,
           fontFamily: "'Poppins', sans-serif",
+          boxShadow: trigger ? '0 4px 30px rgba(0,0,0,0.4)' : 'none',
         }}
       >
-        <Toolbar sx={{ maxWidth: '1200px', width: '100%', mx: 'auto', px: 2, justifyContent: 'space-between', alignItems: 'center', minHeight: trigger ? 56 : 80, transition: 'all 0.3s ease' }}>
+        <Toolbar sx={{ maxWidth: '1200px', width: '100%', mx: 'auto', px: 2, justifyContent: 'space-between', alignItems: 'center', minHeight: trigger ? 56 : 72, transition: 'all 0.3s ease' }}>
           {/* Logo and Name */}
           <Box
             sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', mr: 2 }}
@@ -92,14 +96,17 @@ const Header = () => {
                           '&::after': {
                             content: '""',
                             position: 'absolute',
-                            left: 0,
-                            bottom: 0,
+                            left: '50%',
+                            bottom: -2,
+                            transform: 'translateX(-50%)',
                             width: '0%',
                             height: '2px',
-                            backgroundColor: theme.palette.primary.main,
-                            transition: 'width 0.3s',
+                            background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
+                            borderRadius: '2px',
+                            boxShadow: `0 0 8px ${theme.palette.primary.main}`,
+                            transition: 'width 0.3s ease',
                           },
-                          '&:hover::after': { width: '100%' },
+                          '&:hover::after': { width: '80%' },
                         }}
                       >
                         {item.label}
@@ -176,7 +183,7 @@ const Header = () => {
                     document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
                 >
-                  <ListItemText primary={item.label} primaryTypographyProps={{ color: 'common.white' }} />
+                  <ListItemText primary={<Typography sx={{ color: 'common.white' }}>{item.label}</Typography>} />
                 </ListItem>
               ))}
             </List>
